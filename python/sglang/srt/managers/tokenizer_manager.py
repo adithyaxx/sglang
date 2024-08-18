@@ -263,6 +263,11 @@ class TokenizerManager:
                 logprob_start_len,
                 top_logprobs_num,
                 obj.stream,
+                (
+                    obj.lora_path[index]
+                    if isinstance(obj.lora_path, list)
+                    else obj.lora_path
+                ),
             )
         else:  # is embedding
             tokenized_obj = TokenizedEmbeddingReqInput(
@@ -359,6 +364,11 @@ class TokenizerManager:
                         obj.logprob_start_len[index],
                         obj.top_logprobs_num[index],
                         obj.stream,
+                        (
+                            obj.lora_path[index]
+                            if isinstance(obj.lora_path, list)
+                            else obj.lora_path
+                        ),
                     )
                 else:
                     tokenized_obj = TokenizedEmbeddingReqInput(

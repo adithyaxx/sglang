@@ -327,7 +327,15 @@ class ModelTpServer:
         self,
         recv_req: Union[TokenizedGenerateReqInput, TokenizedEmbeddingReqInput],
     ):
-        req = Req(recv_req.rid, recv_req.input_text, recv_req.input_ids)
+        if isinstance(recv_req, TokenizedGenerateReqInput):
+            req = Req(
+                recv_req.rid,
+                recv_req.input_text,
+                recv_req.input_ids,
+                recv_req.lora_path,
+            )
+        else:
+            req = Req(recv_req.rid, recv_req.input_text, recv_req.input_ids)
         req.tokenizer = self.tokenizer
         req.sampling_params = recv_req.sampling_params
         if self.model_runner.is_generation:
